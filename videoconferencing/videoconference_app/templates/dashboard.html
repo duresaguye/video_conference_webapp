@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video Conference</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<body>
+<div class="dashboard">
+    <h1>Welcome, {{name}}!</h1>
+    <a href="{% url 'video_call' %}">Start Video Call</a> <!-- Button to start video call -->
+    <a href="{% url 'chat_room' room_name='general' %}">Join Chat</a> <!-- Button to join chat -->
+    <a href="{% url 'logout' %}">Logout</a> <!-- Button to logout -->
+</div>
+
+</body>
+</head>
+
+</html>
