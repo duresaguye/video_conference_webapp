@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm
-from .models import Room
 from django.utils.text import slugify
 from django.views.decorators.cache import never_cache
+import uuid
 
 def register(request):
     if request.method == 'POST':
@@ -31,6 +31,7 @@ def login_view(request):
             return render(request, 'login.html', {'error_message': 'Invalid username or password.'})
  
     return render(request, 'login.html')
+
 def logout_view(request):
     logout(request)
     return redirect('/login/')
@@ -40,7 +41,6 @@ def logout_view(request):
 def dashboard(request):
     return render(request, 'dashboard.html', {'name': request.user.username}) 
 
-
 @login_required
 @never_cache
 def chat_room(request, room_name):
@@ -48,8 +48,14 @@ def chat_room(request, room_name):
         'room_name': room_name,
         'username': request.user.username,
     })
+
 @login_required
 @never_cache
-def video_call(request):
-    return render(request, 'video_call.html')
-
+def video_call(request, room_name=None):
+    if not room_name:
+        room_name = str(uuid.uuid4())  # Generate a unique room name if not provided
+    return render(request, 'video_call.html', {
+        'room_name': room_name,
+        'username': request.user.username,
+        'room_url': request.build_absolute_uri(f'/video-call/{room_name}/')
+    })

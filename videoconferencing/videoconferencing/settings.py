@@ -69,6 +69,24 @@ TEMPLATES = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
 WSGI_APPLICATION = 'videoconferencing.wsgi.application'
 ASGI_APPLICATION = 'videoconferencing.asgi.application'
 
@@ -84,11 +102,8 @@ DATABASES = {
 }
 # Redis channel layer for real-time communication
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],  # Redis server
-        },
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
 
