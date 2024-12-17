@@ -1,6 +1,6 @@
 # Video Conference Web App
 ## Overview
-This project is a web application designed for video conferencing. It allows users to create and join video calls, share screens, and chat in real-time.
+This project is a web application designed for video conferencing. It allows users to create and join video calls
 
 ## Features
 - **Video Calls**: High-quality video and audio calls.
